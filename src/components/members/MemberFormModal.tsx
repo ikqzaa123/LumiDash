@@ -4,6 +4,7 @@ import Button from '@/components/ui/Button';
 import FormField, { INPUT_CLASS } from '@/components/ui/FormField';
 import Modal from '@/components/ui/Modal';
 import { createMember, updateMember } from '@/lib/clubApi';
+import { EMAIL_PATTERN } from '@/lib/validation';
 import { MEMBER_ROLES, MEMBER_STATUSES } from '@/types/club';
 import type { Member, MemberInput } from '@/types/club';
 
@@ -13,8 +14,6 @@ interface MemberFormModalProps {
   onClose: () => void;
   onSaved: () => void;
 }
-
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 interface FormState {
   full_name: string;

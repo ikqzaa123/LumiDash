@@ -6,8 +6,8 @@ import {
   Users,
 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import PageHeader from '@/components/ui/PageHeader';
-import type { PageId } from '@/components/layout/Sidebar';
 
 const SHEET_ID = '1cu5fSI8P6XUdrtwLIrDR-LmQCQqbTvxg1HYCl1a0V2g';
 const SHEET_BASE = `https://opensheet.elk.sh/${SHEET_ID}`;
@@ -44,10 +44,6 @@ interface DashboardData {
   events: SheetEvent[];
   budget: SheetBudget[];
   attendance: SheetAttendance[];
-}
-
-interface OverviewPageProps {
-  onNavigate: (page: PageId) => void;
 }
 
 function parseMoney(value: string): number {
@@ -196,7 +192,8 @@ function GroupedBudgetChart({ rows }: { rows: BudgetRow[] }) {
   );
 }
 
-export default function OverviewPage({ onNavigate }: OverviewPageProps) {
+export default function OverviewPage() {
+  const navigate = useNavigate();
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -265,7 +262,7 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
         action={
           <button
             type="button"
-            onClick={() => onNavigate('members')}
+            onClick={() => navigate('/dashboard/members')}
             className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-3 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-emerald-700"
           >
             <Users className="h-4 w-4" />
@@ -345,7 +342,7 @@ export default function OverviewPage({ onNavigate }: OverviewPageProps) {
                 </div>
                 <button
                   type="button"
-                  onClick={() => onNavigate('events')}
+                  onClick={() => navigate('/dashboard/events')}
                   className="shrink-0 text-xs font-medium text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300"
                 >
                   ดูกิจกรรม
